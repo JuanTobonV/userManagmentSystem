@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 interface userType {
     id:number
@@ -19,7 +19,7 @@ export default function Home() {
     }
 
     const deleteUser = async(id: number) => {
-        const result = await axios.delete(`http://localhost:8080/user/${id}`)
+        await axios.delete(`http://localhost:8080/user/${id}`)
         loadUser()
     }
 
@@ -49,7 +49,7 @@ export default function Home() {
                                 <td>{user.username}</td>
                                 <td>{user.email}</td>
                                 <td className='flex gap-2 justify-center mt-3'>
-                                    <button className="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800  focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">View</button>
+                                    <Link to={`/viewuser/${user.id}`} className="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800  focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">View</Link>
                                     <Link to = {`/edituser/${user.id}`} type="button" className="text-black hover:text-dark border border-black hover:bg-white  focus:outline-none focus:ring-black-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-black-300 dark:text-black-300 dark:hover:text-white dark:hover:bg-gray-400 dark:focus:ring-yellow-900">Edit</Link>
                                     <button type="button" className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800  focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
                                     onClick={ () => deleteUser(user.id)}
